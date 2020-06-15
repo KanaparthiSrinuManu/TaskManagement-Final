@@ -153,108 +153,108 @@ exports.deleteAll = (req, res) => {
   });
 };
 
-// exports.textfiletodb=(req,res)=>{
-// let stream = fs.createReadStream("test.txt");
-// let myData = [];
-// let csvStream = csv
-//   .parse()
-//   .on("data", function (data) {
-//     myData.push(data);
-//   })
-//   .on("end", function () {
-//     myData.shift();
+ exports.textfiletodb=(req,res)=>{
+ let stream = fs.createReadStream("test.txt");
+let myData = [];
+let csvStream = csv
+  .parse()
+  .on("data", function (data) {
+    myData.push(data);
+  })
+  .on("end", function () {
+    myData.shift();
 
-//     const connection = mysql.createConnection({
-//       host: "localhost",
-//       user: "root",
-//       password: "admin",
-//       database: "taskmanagement",
-//     });
+    const connection = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "admin",
+      database: "taskmanagement",
+    });
 
-//     connection.connect((error) => {
-//       if (error) {
-//         console.error(error);
-//       } else {
-//         let query = "INSERT INTO todo (cname, cdes, cstatus) VALUES ?";
-//         connection.query(query, [myData], (error, response) => {
-//           console.log(error || response);
-//         });
-//       }
-//     });
-//   });
-//   stream.pipe(csvStream);
-//   res.send("Success"); 
-// };
+    connection.connect((error) => {
+      if (error) {
+        console.error(error);
+      } else {
+        let query = "INSERT INTO todo (cname, cdes, cstatus) VALUES ?";
+        connection.query(query, [myData], (error, response) => {
+          console.log(error || response);
+        });
+      }
+    });
+  });
+  stream.pipe(csvStream);
+  res.send("Success"); 
+};
 
 
-// exports.importExcelData2MySQL=function(filePath){
+exports.importExcelData2MySQL=function(filePath){
 
-// 	readXlsxFile(filePath).then((rows) => {
+	readXlsxFile(filePath).then((rows) => {
 			 
-// 		console.log(rows);
+		console.log(rows);
 
-// 		rows.shift();
+		rows.shift();
 	 		
-// 		const connection = mysql.createConnection({
-// 			host: 'localhost',
-// 			user: 'root',
-// 			password: 'admin',
-// 			database: 'taskmanagement'
-// 		});
+		const connection = mysql.createConnection({
+			host: 'localhost',
+			user: 'root',
+			password: 'admin',
+			database: 'taskmanagement'
+		});
 	 
-// 		connection.connect((error) => {
-// 			if (error) {
-// 				console.error(error);
-// 			} else {
-// 				let query = 'INSERT INTO todo (cname,cdes,cstatus) VALUES ?';
-// 				connection.query(query, [rows], (error, response) => {
-// 				console.log(error || response);
-// 				});
-// 			}
-// 		});
-// 	})
+		connection.connect((error) => {
+			if (error) {
+				console.error(error);
+			} else {
+				let query = 'INSERT INTO todo (cname,cdes,cstatus) VALUES ?';
+				connection.query(query, [rows], (error, response) => {
+				console.log(error || response);
+				});
+			}
+		});
+	})
 
-// }
+}
  
-// exports.importTextData2MySQL=function(filePath){
-//     let stream = fs.createReadStream(filePath);
-//     let myData = [];
-//     let csvStream = csv
-//       .parse()
-//       .on("data", function (data) {
-//         myData.push(data);
-//       })
-//       .on("end", function () {
-//         myData.shift();
-//         var item="$";
-//         remove(myData,item);
-//         function remove(myData, item) {
-//             for (var i = myData.length; i--;) {
-//                 if (myData[i] == item) {
-//                     myData.splice(i, 1);
-//                 }
-//             }
-//         }
-//         const connection = mysql.createConnection({
-//           host: "localhost",
-//           user: "root",
-//           password: "admin",
-//           database: "taskmanagement",
-//         });
+exports.importTextData2MySQL=function(filePath){
+    let stream = fs.createReadStream(filePath);
+    let myData = [];
+    let csvStream = csv
+      .parse()
+      .on("data", function (data) {
+        myData.push(data);
+      })
+      .on("end", function () {
+        myData.shift();
+        var item="$";
+        remove(myData,item);
+        function remove(myData, item) {
+            for (var i = myData.length; i--;) {
+                if (myData[i] == item) {
+                    myData.splice(i, 1);
+                }
+            }
+        }
+        const connection = mysql.createConnection({
+          host: "localhost",
+          user: "root",
+          password: "admin",
+          database: "taskmanagement",
+        });
     
-//         connection.connect((error) => {
-//           if (error) {
-//             console.error(error);
-//           } else {
-//             let query = "INSERT INTO todo (cname, cdes, cstatus) VALUES ?";
-//             connection.query(query, [myData], (error, response) => {
-//               console.log(error || response);
-//             });
-//           }
-//         });
-//       });
-//       stream.pipe(csvStream);
-//     };
+        connection.connect((error) => {
+          if (error) {
+            console.error(error);
+          } else {
+            let query = "INSERT INTO todo (cname, cdes, cstatus) VALUES ?";
+            connection.query(query, [myData], (error, response) => {
+              console.log(error || response);
+            });
+          }
+        });
+      });
+      stream.pipe(csvStream);
+    };
 
     
     exports.importExcelData2MySQLDB=function (filePath){
